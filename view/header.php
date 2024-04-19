@@ -155,16 +155,6 @@
                         </li>
                         <li class="nav__ul__li--list nav__ul--product"><a href="index.php?act=showProducts">Sản phẩm</a>
                         </li>
-                        <li class="nav__ul__li--list nav__ul--product"><a href="index.php?act=showProducts">Hãng Khác</a>
-                            <?php
-                            foreach ($dsdm as $dm) {
-                                extract($dm);
-                                $linkdm = "index.php?act=showProducts&id=" . $id;
-                                echo '<li><a href="' . $linkdm . '" >' . $name . '</a></li>';
-                            }
-                            ?>
-                        </li>
-
                         <li class="nav__ul__li--list nav__ul--contact"><a href="index.php?act=lienhe">Liên hệ</a></li>
                         <li class="nav__ul__li--list nav__ul--introduce"><a href="index.php?act=gioithieu">Giới
                                 thiệu</a></li>

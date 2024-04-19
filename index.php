@@ -20,10 +20,8 @@ $pronew3 = loadall_product_home3();
 if (!isset($_SESSION['mycart'])) {
     $_SESSION['mycart'] = [];
 }
-// Ai làm bên này có giao diện người dùng thì tự động thêm vào
-// Làm cái gì thì cứ comment tên người làm lại ở đầu và cuối chức năng
 // Comment thêm tên chức năng nữa nhé
-$protop8 =  loadtop8_product_home();
+$protop8 = loadtop8_product_home();
 // $protop16 = loadtop16_product_home();
 $protop4 = loadtop4_product_home();
 $dsdm = loadall_category();
@@ -37,7 +35,7 @@ require_once "view/header.php";
 if (isset($_GET['act'])) {
     $actAdmin = $_GET['act'];
     switch ($actAdmin) {
-            // Hiệp làm showProducts
+        // Quân làm showProducts
         case 'showProducts':  // hiện thị sản phẩm theo danh mục
             if (isset($_POST['kyw']) && ($_POST['kyw'] != "")) {
                 $kyw = $_POST['kyw'];
@@ -60,7 +58,7 @@ if (isset($_GET['act'])) {
         case 'detail_product':
             if (isset($_GET['id']) && ($_GET['id'] > 0)) {
                 $id = $_GET['id'];
-                $onepro_categories =  loadone_detail_product_flow_categories($id);
+                $onepro_categories = loadone_detail_product_flow_categories($id);
                 $list_image_product = loadone_detail_product_flow_product_images($id);
                 $idCategory = $onepro_categories['id_category'];
                 // extract($onepro_categories);
@@ -77,7 +75,7 @@ if (isset($_GET['act'])) {
             }
 
             break;
-            // Đức làm đăng ký đăng nhập quên mật khẩu
+        // Quân làm đăng ký đăng nhập quên mật khẩu
         case 'thongtintaikhoan':
             if (!isset($_SESSION['user'])) {
                 require_once "view/dangnhap.php";
@@ -154,7 +152,7 @@ if (isset($_GET['act'])) {
             }
             break;
         case 'doimatkhau':
-            if(isset($_SESSION['user'])){
+            if (isset($_SESSION['user'])) {
                 if (isset($_POST['doimatkhau'])) {
                     $password_old = $_POST['password_Old'];
                     $password_new = $_POST['password_new'];
@@ -192,13 +190,14 @@ if (isset($_GET['act'])) {
                     }
                 }
                 require_once "view/doimatkhau.php";
-            }else{
+            } else {
                 header("Location: index.php");
                 ob_end_flush();
             }
             break;
+
         case 'dangnhap':
-            if (isset($_POST['dangnhap']) == true) {
+            if (isset($_POST['dangnhap'])) {
                 $email_login = $_POST['email_login'];
                 $password = $_POST['password'];
                 $check = true;
@@ -218,17 +217,23 @@ if (isset($_GET['act'])) {
                     $check = false;
                 }
                 $password = md5($password);
+
                 $checkuser_success = CheckUser($email_login, $password);
+
+
+                
                 if ($check == true) {
                     if (is_array($checkuser_success)) {
                         if (($checkuser_success['status'] == 1)) {
                             $thongbao[0] = "Tài khoản của bạn đã bị vô hiệu hóa liên hệ admin để được hỗ trợ !";
                         } else {
-                            if(isset($code) && ($code>100000)) {
+                            if (isset($code) && ($code > 100000)) {
                                 $_SESSION['user'] = $checkuser_success;
-                                header("Location: index.php?act=doimatkhau&codelogin=".$code);
-                            }else{
+
+                                header("Location: index.php?act=doimatkhau&codelogin=" . $code);
+                            } else {
                                 $_SESSION['user'] = $checkuser_success;
+                                var_dump($_SESSION['user']);
                                 $thongbao[0] = "Đăng nhập thành công !";
                                 echo $_GET['code'];
                                 header("Location: index.php");
@@ -244,7 +249,7 @@ if (isset($_GET['act'])) {
                 $email = $_POST['email'];
                 $name = $_POST['name'];
                 $check = true;
-                if($name == ''){
+                if ($name == '') {
                     $thongbao[4] = "Vui lòng nhập họ tên trong tài khoản";
                     $check = false;
                 }
@@ -254,30 +259,31 @@ if (isset($_GET['act'])) {
                 } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     $thongbao[3] = "Email sai định dạng VD: duc@abc.xyz !";
                     $check = false;
-                } 
-                if($check==true){
-                    $pass = rand(100000,999999);
-                    $check_email = CheckEmail_Name($email,$name);
+                }
+                if ($check == true) {
+                    $pass = rand(100000, 999999);
+                    $check_email = CheckEmail_Name($email, $name);
                     if (is_array($check_email)) {
                         // $thongbao[5] = 'Mật khẩu của bạn là: ' . $pass;
                         $passins = md5($pass);
-                        Reset_pass($passins,$email,$name);
-                        header("Location: index.php?act=dangnhap&codelogin=Mật khẩu mới của bạn là: ".$pass.'&code='.$pass);
+                        Reset_pass($passins, $email, $name);
+                        header("Location: index.php?act=dangnhap&codelogin=Mật khẩu mới của bạn là: " . $pass . '&code=' . $pass);
                     } else {
-                        $thongbao[5] = 'Email "' . $email . '" hoặc họ tên "'.$name.'" không đúng';
+                        $thongbao[5] = 'Email "' . $email . '" hoặc họ tên "' . $name . '" không đúng';
                     }
                 }
             }
             // if (isset($_SESSION['user'])) {
             //     header("Location: index.php?");
             // } else {
-                //     require_once "./view/dangnhap.php";
-                // }
-            if(!isset($_SESSION['user'])){
-                require_once "./view/dangnhap.php";
-            }
+            //     require_once "./view/dangnhap.php";
+
+        
+                require "./view/dangnhap.php";
+            
 
             break;
+
         case 'dangky':
             if (isset($_POST['dangky'])) {
                 $check = true;
@@ -359,7 +365,7 @@ if (isset($_GET['act'])) {
             header("Location: index.php?act=dangnhap&msg=Đã đăng xuất !!!");
             break;
 
-            // long cart 
+        // Phát cart 
 
 
         case "cart":
@@ -400,7 +406,7 @@ if (isset($_GET['act'])) {
             require_once "./view/cart/giohang.php";
 
             break;
-            // delete product cart
+        // delete product cart
         case "delete_product_cart_byId":
 
             $id = $_GET['id'];
@@ -408,12 +414,12 @@ if (isset($_GET['act'])) {
             // echo "<script>
             // window.location.href = 'index.php?act=cart';
             // </script>";
-           
-         // require_once "./view/cart/giohang.php";
+
+            // require_once "./view/cart/giohang.php";
             echo "<script>window.location.href='index.php?act=cart';</script>";
 
             break;
-            // update quantity use by product
+        // update quantity use by product
         case "update_quantity_products_Cart":
             $id = $_GET['id'];
             $type = $_GET['type'];
@@ -433,14 +439,14 @@ if (isset($_GET['act'])) {
 
             break;
 
-            //pay money 
+        //pay money 
         case "payMoneyProducts":
             if (!isset($_SESSION['user'])) {
                 require_once "./view/dangnhap.php";
                 exit;
             } else {
                 $totalAllProductPay = isset($_POST['totalAllProductPay']) ? $_POST['totalAllProductPay'] : $_POST['totalPricePay'];
-            
+
                 if (isset($_POST['btn-orderSuccess'])) {
                     date_default_timezone_set("Asia/Ho_Chi_Minh");
                     $errors = [];
@@ -454,28 +460,28 @@ if (isset($_GET['act'])) {
                     $dateCurrent = time();
                     $dateToInt = date("Y-m-d h:i:s", $dateCurrent);
 
-                    
-                    if(!isset($_POST['btn-checkRule'])){
+
+                    if (!isset($_POST['btn-checkRule'])) {
                         $errors['checkRule'] = "Chấp nhận chính sách để thanh toán!";
                     }
-                    
+
 
 
                     if ($phoneNumber == "") {
                         $errors['phoneNumber'] = "Bạn phải nhập số điện thoại";
                     } else if (!is_numeric($phoneNumber)) {
                         $errors['phoneNumber'] = "Địa chỉ số điện thoại phải là số";
-                    } else if (strlen($phoneNumber) != 10  || substr($phoneNumber, 0, 1) != 0) {
+                    } else if (strlen($phoneNumber) != 10 || substr($phoneNumber, 0, 1) != 0) {
                         $errors['phoneNumber'] = "Số điện thoại không tồn tại";
                     }
                     if ($address == "") {
                         $errors['address'] = "Bạn phải nhập địa chỉ";
                     }
                     if (!$errors) {
-                        $idOrder = insertToOrderClient($id, $payWhen, $totalPricePay, $note, $address,$dateToInt);
+                        $idOrder = insertToOrderClient($id, $payWhen, $totalPricePay, $note, $address, $dateToInt);
                         foreach ($_SESSION['mycart'] as $value) {
-                            insertToOrderDetail($idOrder, $value['id'], $value['use_quantity_buy'], $value['giagiam'],$value['sizeProduct']);
-                            updateQuantityPaySuccess($value['id'],$value['use_quantity_buy']);
+                            insertToOrderDetail($idOrder, $value['id'], $value['use_quantity_buy'], $value['giagiam'], $value['sizeProduct']);
+                            updateQuantityPaySuccess($value['id'], $value['use_quantity_buy']);
                         }
                         // header("location: index.php?act=dsdonhang");
                         $_SESSION['mycart'] = [];
@@ -483,7 +489,7 @@ if (isset($_GET['act'])) {
                                 alert('Bạn đã mua hàng thành công');
                                 window.location.href = 'index.php?act=dsdonhang';
                             </script>";
-                          
+
                     }
                 }
                 require_once "./view/cart/pay_detail.php";
@@ -502,12 +508,12 @@ if (isset($_GET['act'])) {
             break;
         case "cancelOrderUser":
             $idOrder = $_GET['idOrder'] ?? "";
-            if(is_numeric($idOrder) && $idOrder > 0){
+            if (is_numeric($idOrder) && $idOrder > 0) {
                 $_SESSION['mycart'] = [];
                 $product_value = selectOrderCancelToCart($idOrder);
-                foreach($product_value as $value){
+                foreach ($product_value as $value) {
                     $_SESSION['mycart'][] = $value;
-                    updateQuantityWhenCancelOrder($value['id'],$value['use_quantity_buy']);
+                    updateQuantityWhenCancelOrder($value['id'], $value['use_quantity_buy']);
                 }
                 cancelOrderUserFromDetailOrder($idOrder);
                 cancelOrderUserFromOrder($idOrder);
@@ -525,7 +531,7 @@ if (isset($_GET['act'])) {
             $listLowPrice = fillter_price_low();
             require_once "./view/tintuc.php";
             break;
-    
+
         default:
             // require_once "";
             break;

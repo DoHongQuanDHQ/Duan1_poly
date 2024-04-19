@@ -386,7 +386,7 @@ span.mid-header__user__icon:hover {
 
 .grid.footer {
     margin-top: 20px;
-    background-color: #000000;
+    background-color: #ffffff;
     width: 100%;
 }
 
@@ -441,8 +441,8 @@ span.mid-header__user__icon:hover {
 
 .footer--menu-col-4 h3 {
     color: #000000;
+    
 }
-
 .footer--menu-col-4 p a {
     color: #000000;
     text-decoration: none;

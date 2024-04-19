@@ -50,8 +50,8 @@
             <h2 class="numberStatistics" style="text-align: center; padding-top:35px;">
                 <?php
                 // var_dump($countView);
-                    $stringCount = str_pad($countView[0]['viewAccess'],8,"0",STR_PAD_LEFT);
-                    echo $stringCount;
+                    // $stringCount = str_pad($countView[0]['viewAccess'],8,"0",STR_PAD_LEFT);
+                    // echo $stringCount;
                 ?>
             </h2>
             <p class="nameStatistics" style="text-align: center; padding: 15px 0;">
@@ -114,7 +114,7 @@
 </div>
 </div>
 <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.umd.min.js"></script>
-<script type="module">
+<!-- <script type="module">
     const labels = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
     const data = {
         labels: labels,
@@ -148,7 +148,7 @@
     };
     const canvas = document.getElementById('canvas5');
     const chart = new Chart(canvas, config);
-</script>
+</script> -->
 <script src="../src/js/animation.js"></script>
 </body>
 

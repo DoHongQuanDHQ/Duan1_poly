@@ -1,14 +1,17 @@
 <?php
     // Số lượng đơn mua theo ngày
     function buyProductWithDay(){
-        $sql = "SELECT ors.*, COUNT(ors.id_kh) as kh_mua FROM (SELECT  kh.id id_kh , od.id id_don_hang, kh.name ,od.created_at, od.total_price
-        FROM orders od JOIN users kh on od.user_id=kh.id
-        WHERE  DATE_FORMAT(od.created_at, '%d/%m/%Y') LIKE (SELECT DATE_FORMAT(CURRENT_TIMESTAMP, '%d/%m/%Y')) ) ors
-        GROUP BY id_kh
-        ORDER  BY kh_mua DESC
-        ";
+        $sql = "SELECT ors.id_kh, MAX(ors.id_don_hang) as id_don_hang, ors.name, ors.created_at, ors.total_price, COUNT(ors.id_kh) as kh_mua 
+                FROM (
+                    SELECT kh.id as id_kh, od.id as id_don_hang, kh.name, od.created_at, od.total_price
+                    FROM orders od 
+                    JOIN users kh ON od.user_id = kh.id
+                    WHERE DATE_FORMAT(od.created_at, '%d/%m/%Y') = DATE_FORMAT(CURRENT_TIMESTAMP, '%d/%m/%Y')
+                ) as ors
+                GROUP BY ors.id_kh, ors.name, ors.created_at, ors.total_price
+                ORDER BY kh_mua DESC";
         return pdo_query($sql);
-    };
+    }
     function totalMonneyWithYearMonth(){
         $sql = "select year(created_at),month(created_at),sum(total_price) from orders group by year(created_at),month(created_at) order by year(created_at),month(created_at)
         ";
@@ -31,7 +34,15 @@
     }
     // Số lượng đơn theo tuần
     function totalOrderWithWeek(){
-        $sql = "SELECT ors.*, COUNT(ors.id_kh) as kh_mua FROM (SELECT kh.id id_kh , od.id id_don_hang, kh.name ,od.created_at, od.total_price FROM orders od JOIN users kh on od.user_id=kh.id WHERE od.created_at >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)) ors GROUP BY id_kh ORDER BY kh_mua DESC;";
+        $sql = "SELECT ors.id_kh, MAX(ors.id_don_hang) as id_don_hang, ors.name, ors.created_at, SUM(ors.total_price) as total_price, COUNT(ors.id_kh) as kh_mua 
+                FROM (
+                    SELECT kh.id as id_kh, od.id as id_don_hang, kh.name, od.created_at, od.total_price
+                    FROM orders od 
+                    JOIN users kh ON od.user_id = kh.id
+                    WHERE od.created_at >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+                ) as ors
+                GROUP BY ors.id_kh, ors.name, ors.created_at
+                ORDER BY kh_mua DESC";
         return pdo_query($sql);
     }
     // Tổng doanh thu theo năm tháng hiện tại

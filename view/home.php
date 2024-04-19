@@ -79,9 +79,6 @@
     </section>
     <section class="grid wide section__wrap--review--2">
         <div class="warp--review--2--row-1 ">
-            <div class="review--2-row--1__img l-5 m-12 c-12">
-                <img src="./src/image/img_header_hoan/image_second.png" alt="">
-            </div>
         </div>
         <div class="section__product--hot__banner warp--review--1--row-2 row">
             <?php
@@ -116,11 +113,11 @@
     </section>
     <section class="grid wide section__wrap--category--review">
         <div class="img--banner--category">
-            <img src="./src/image/img_header_hoan/banner_footer_news.png" alt="">
+            <img src="./src/image/img_header_hoan/slide2.jpg" alt="">
         </div>
 
         <div class="category--review--flex row">
-            <div class="grid wide category--col-1--name l-2-4 ">
+            <div class="grid wide category--col-1--name l-2-4">
                 <h2>Danh mục sản phẩm</h2>
                 <p class="p--category--product--menu">Trang chủ</p>
                 <p class="p--category--product--menu">Sản phẩm</p>
@@ -135,13 +132,11 @@
                         ?>
                     </ul>
                 </div>
-
-
                 <p class="p--category--product--menu">Liên hệ</p>
                 <p class="p--category--product--menu">Giới thiệu</p>
                 <p class="p--category--product--menu">Tin tức</p>
-
             </div>
+
             <div class="category--grid--review  l-9">
                 <div class="row">
                     <?php
@@ -181,7 +176,8 @@
                 </div>
                 <div class="grid wide review--category__p--more">
                     <a href="index.php?act=showProducts">
-                        <p>Xem tất cả<i class="fa-solid fa-angle-right" style="margin-left: 5px; font-size: 17px;"></i></p>
+                        <p>Xem tất cả<i class="fa-solid fa-angle-right" style="margin-left: 5px; font-size: 17px;"></i>
+                        </p>
                     </a>
                 </div>
             </div>
@@ -196,7 +192,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.review__product--hot').slick({
             slidesToShow: 5,
             slidesToScroll: 1,
@@ -211,7 +207,7 @@
 </script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.warp--review--1--row-2').slick({
             slidesToShow: 5,
             slidesToScroll: 1,

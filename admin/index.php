@@ -4,7 +4,7 @@
 session_start();
 
 if (isset($_SESSION['user'])  && ($_SESSION['user']['role'] == 1)) {
-    ob_start();
+    // ob_start();
 
 require_once "../global.php";
 require_once "../model/pdo.php";
@@ -14,13 +14,14 @@ require_once "../model/danhmuc.php";
 require_once "../model/giohang.php";
 require_once "../model/thanhtoan.php";
 require_once "../model/binhluan.php";
-
+require "./header.php";
 if (!isset($_SESSION['orderAdmin'])) {
     $_SESSION['orderAdmin'] = [];
 }
 if (!isset($_SESSION['orderUpdateAdmin'])) {
     $_SESSION['orderUpdateAdmin'] = [];
 }
+
 $sumMoneyShop = getTotalMoneyToShop();
 
 // $countView = getViewAccessWebsite();
@@ -29,12 +30,15 @@ $bestSale = bestProductSales();
 $totalOrderWeek = totalOrderWithWeek();
 $sumMoneyMonthCurrently = sumMoneyMonthCurrently();
 $listProductFlCat = getFilterCategory();
-require_once "./header.php";
+
+
+
+
 if (isset($_GET['actAdmin'])) {
     $actAdmin = $_GET['actAdmin'];
     switch ($actAdmin) {
 
-                // long code categories
+                //  code categories
             case 'addCategory':
                 if (isset($_POST['btn--addProduct'])) {
                     // status 
@@ -66,7 +70,7 @@ if (isset($_GET['actAdmin'])) {
                     $notification = "Thêm danh mục thành công";
                 }
                 $listdm = getAllCategories("");
-                require_once "./categories/add.php";
+                require_once "./danhmuc/add.php";
                 break;
 
             case 'listCategories':
@@ -79,7 +83,7 @@ if (isset($_GET['actAdmin'])) {
                 }
                 $countPage = get_Page_Cat_admin_order($keyWord);
                 $listdm = getAllCategories($keyWord);
-                require_once "./categories/list.php";
+                require_once "./danhmuc/list.php";
                 break;
             case 'deleteCategory':
                 if (isset($_GET['id'])) {
@@ -125,14 +129,14 @@ if (isset($_GET['actAdmin'])) {
                     $notification = "Xóa danh mục thành công";
                 }
                 $listdm = getAllCategories("");
-                require_once "./categories/list.php";
+                require_once "./danhmuc/list.php";
                 break;
             case 'editCategories';
                 if (isset($_GET['id'])) {
                     $id = $_GET['id'];
                     $detailDm = category_select($id);
                 }
-                require_once "./categories/edit.php";
+                require_once "./danhmuc/edit.php";
                 break;
             case 'updateCategory';
                 if (isset($_POST['btn-editProduct'])) {
@@ -166,9 +170,9 @@ if (isset($_GET['actAdmin'])) {
                     $notification = "Bạn đã chỉnh sửa danh mục thành công";
                 }
                 $listdm = getAllCategories("");
-                require_once "./categories/list.php";
+                require_once "./danhmuc/list.php";
                 break;
-                // long code categories
+                //  code categories
 
             // products
             case 'deleteProduct':
@@ -199,7 +203,7 @@ if (isset($_GET['actAdmin'])) {
                 }
                 // $countPage = get_Page_Product_admin("","",$rowsProductAdmin);
                 // $listProduct = getAllProduct("","",$rowsProductAdmin);
-                // require_once "./products/list.php";
+                // require_once "./sanpham/list.php";
                 break;
         case 'addProduct':
             if (isset($_POST['btn--addProduct'])) {
@@ -278,7 +282,7 @@ if (isset($_GET['actAdmin'])) {
                 }     
             }
             $listCategories = getAllCategories("");
-            require_once "./products/add.php";
+            require_once "./sanpham/add.php";
             break;
         case 'editProduct':
             $id = isset($_GET['id']) ? $_GET['id'] : "";
@@ -392,7 +396,7 @@ if (isset($_GET['actAdmin'])) {
                     }
                 }
             }
-            require_once "./products/edit.php";
+            require_once "./sanpham/edit.php";
             break;
         case 'showProduct':
             if(isset($_POST['btn__deleteProductAdmin'])){
@@ -428,6 +432,7 @@ if (isset($_GET['actAdmin'])) {
                     echo "<script> alert('Không hàng nào chịu tác động') </script>";
                 }
             }
+
             if (isset($_POST['btn-search--Product'] )) {
                 $keyWord = $_POST['keyWord'];
             }else if(isset($_GET['keyWord'])) {
@@ -448,7 +453,7 @@ if (isset($_GET['actAdmin'])) {
             
             $countPage = get_Page_Product_admin($keyWord,$nameCaterory,$rowsProductAdmin,$filterToPrice);
             $listProduct = getAllProduct($keyWord,$nameCaterory,$rowsProductAdmin,$filterToPrice);
-            require_once "./products/list.php";
+            require_once "./sanpham/list.php";
             break;
         case 'showOrder':
             if(isset($_POST['btn-searchOrder'])){
@@ -461,7 +466,7 @@ if (isset($_GET['actAdmin'])) {
             $countPage = get_Page_Order_admin_order($keyWord);
             $listOrderUser = getAllOrderToAdmin($keyWord);
            
-            require_once "./orders/list.php";
+            require_once "./giohang/list.php";
             break;
         case 'addOrderAdmin':
             $temp = -1;
@@ -501,7 +506,7 @@ if (isset($_GET['actAdmin'])) {
                 $countPage = get_Page_Product_admin_order($keyWord, $rowsProductAdmin);
                 $listProduct = getAllProduct_order($keyWord, $rowsProductAdmin);
                 $listOrderUser = getAllOrderToAdmin("");
-                require_once "./orders/addOrderAdmin.php";
+                require_once "./giohang/addOrderAdmin.php";
                 break;
             case "update_quantity_products_CartAdmin":
                 $id = $_GET['id'];
@@ -519,7 +524,7 @@ if (isset($_GET['actAdmin'])) {
                 $countPage = get_Page_Product_admin_order($keyWord, $rowsProductAdmin);
                 $listProduct = getAllProduct_order($keyWord, $rowsProductAdmin);
                 $listOrderUser = getAllOrderToAdmin("");
-                require_once "./orders/addOrderAdmin.php";
+                require_once "./giohang/addOrderAdmin.php";
                 break;
             case 'AddOrderUserDirect':
                 if (isset($_POST['btn--addProduct'])) {
@@ -567,7 +572,7 @@ if (isset($_GET['actAdmin'])) {
                     $countPage = get_Page_Product_admin_order($keyWord, $rowsProductAdmin);
                     $listProduct = getAllProduct_order($keyWord, $rowsProductAdmin);
                 }
-                require_once "./orders/editOrderAdmin.php";
+                require_once "./giohang/editOrderAdmin.php";
                 break;
             case 'updateOrderAdmin-WithUser':
                 $id = isset($_GET['id']) ? $_GET['id'] : "";
@@ -628,7 +633,7 @@ if (isset($_GET['actAdmin'])) {
                     $countPage = get_Page_Product_admin_order($keyWord, $rowsProductAdmin);
                     $listProduct = getAllProduct_order($keyWord, $rowsProductAdmin);
                 }
-                require_once "./orders/editOrderAdmin.php";
+                require_once "./giohang/editOrderAdmin.php";
                 break;
             case 'updateOrderUserDirectSuccess':
                 
@@ -682,7 +687,7 @@ if (isset($_GET['actAdmin'])) {
                     tickOrderAdmin($id, $status);
                 }
                 $listOrderUser = getAllOrderToAdmin("");
-                require_once "./orders/list.php";
+                require_once "./giohang/list.php";
                 break;
             case 'deleteOrder':
                 $id = isset($_GET['id']) ? $_GET['id'] : "";
@@ -691,20 +696,20 @@ if (isset($_GET['actAdmin'])) {
                     deleteOrderToAdmin($id);
                     $notification = "Xóa đơn hàng thành công";
                 } else {
-                    require_once "./orders/list.php";
+                    require_once "./giohang/list.php";
                 }
                 $listOrderUser = getAllOrderToAdmin("");
-                require_once "./orders/list.php";
+                require_once "./giohang/list.php";
             
             $listOrderUser = getAllOrderToAdmin("");
-            require_once "./orders/list.php";
+            require_once "./giohang/list.php";
             break;
         case "detailOrder":
             $id = isset($_GET['id']) ? $_GET['id'] : "";
             if ($id > 0 && is_numeric($id)) {
                 $listOrderAdmin = getOrderAdmin($id);
             }
-            require_once "./orders/detailOrder.php";
+            require_once "./giohang/detailOrder.php";
             break;
             // Đức - Quản lý người dùng
         case 'showUsers':
@@ -716,20 +721,20 @@ if (isset($_GET['actAdmin'])) {
                     $page = (int)$_GET['page'];
                     $page = ($page-1)*5;
                     $listUser = getAllUser2($page);
-                    require_once "./users/list.php";
+                    require_once "./taikhoan/list.php";
                 }else{
                     $listUser = getAllUser1();
-                    require_once "./users/list.php";
+                    require_once "./taikhoan/list.php";
                 }
             }else{
                 $listUser = getAllUser1();
-                require_once "./users/list.php";
+                require_once "./taikhoan/list.php";
             }
             break;
         case 'SearchUsers':
             $kyw = $_POST['kyw'];
             $listUser = SearchUser($kyw);
-            require_once "./users/list.php";
+            require_once "./taikhoan/list.php";
             break;
         case 'addUser':
                 if (isset($_POST['btn--addUser'])) {
@@ -823,7 +828,7 @@ if (isset($_GET['actAdmin'])) {
                     ob_end_flush();
                 }
             }
-            require_once "./users/add.php";
+            require_once "./taikhoan/add.php";
             break;
         case 'editUser':
             $id = $_GET['id'];
@@ -856,7 +861,7 @@ if (isset($_GET['actAdmin'])) {
                 header('Location: index.php?actAdmin=showUsers&&msg=Cập nhật thành công !');
                 ob_end_flush();
             }
-            require_once "./users/edit.php";
+            require_once "./taikhoan/edit.php";
             break;
         case 'deleteUser':
             $id = $_GET['id'];
@@ -864,7 +869,7 @@ if (isset($_GET['actAdmin'])) {
                 UserDelete($id);
                 $notification = "Xóa tài khoản thành công !";
                 $listUser = getAllUser();
-                require_once "./users/list.php";
+                require_once "./taikhoan/list.php";
             }
             break;
         case 'statisticals':
@@ -901,7 +906,7 @@ if (isset($_GET['actAdmin'])) {
             }
           
          
-            require_once "./statisticals/list.php";
+            require_once "./thanhtoan/list.php";
             break;
         case 'comments':
             if(isset($_GET['rate'])&&isset($_GET['pageRate'])){
@@ -912,35 +917,42 @@ if (isset($_GET['actAdmin'])) {
                     $page = (int)$_GET['pageRate'];
                     $page = ($page-1)*5;
                     $listCmt = filter_rate2($page);
-                    require_once "./comments/cmtMuch.php";
+                    require_once "./binhluan/cmtMuch.php";
                 }else{
                     $listCmt = filter_rate2(0);
-                    require_once "./comments/cmtMuch.php";
+                    require_once "./binhluan/cmtMuch.php";
                 }
             }
             if(isset($_GET['page'])){
                 $table = 'comments_product';
                 $rows = count_rows($table);
+
+
                 $slpage = ceil($rows['rows']/5);
-                if($_GET['page'] > 0 && $_GET['page'] < $slpage){
-                    $page = (int)$_GET['page'];
+
+                if($_GET['page'] > 0 && $_GET['page'] <= $slpage){
+                    $page = $_GET['page'];
                     $page = ($page-1)*5;
+
+
                     $listCmt = commented_getAll2($page);
-                    require_once "./comments/list.php";
-                }else{
+                    require_once "./binhluan/list.php";
+                }
+                else{
                     $listCmt = commented_getAll2(0);
-                    require_once "./comments/list.php";
+                    require_once "./binhluan/list.php";
                 }
             }
-            // else{
-            //     $listCmt = commented_getAll2(0);
-            //     require_once "./comments/list.php";
-            // }
+            else{
+                $listCmt = commented_getAll2(0);
+                require_once "./binhluan/list.php";
+            }
             break;
+
         case 'searchProCmt':
             $kyw = $_POST['kyw'];
             $listCmt = comment_searchFollow_pro($kyw);
-            require_once "./comments/list.php";
+            require_once "./binhluan/list.php";
             break;
         case 'detailComment':
             if(isset($_GET['pid'])){
@@ -951,14 +963,14 @@ if (isset($_GET['actAdmin'])) {
                         $page = (int)$_GET['page'];
                         $page = ($page-1)*5;
                         $listCmt=comment_select_pro_cmt($page,$_GET['pid']);
-                        require_once "./comments/detailComment.php";
+                        require_once "./binhluan/detailComment.php";
                     }else{
                         $listCmt=comment_select_pro_cmt(0,$_GET['pid']);
-                        require_once "./comments/detailComment.php";
+                        require_once "./binhluan/detailComment.php";
                     }
                 }else{
                     $listCmt=comment_select_pro_cmt(0,$_GET['pid']);
-                    require_once "./comments/detailComment.php";
+                    require_once "./binhluan/detailComment.php";
                 }
             }else{
                 header('Location: index.php?actAdmin=comments');
@@ -993,6 +1005,7 @@ if (isset($_GET['actAdmin'])) {
             break;
 
         case 'dangxuat':
+
             session_destroy();
             header("Location: ../index.php?act=dangnhap");
             break;
@@ -1006,10 +1019,10 @@ if (isset($_GET['actAdmin'])) {
                 break;
         }
     } else {
-        $listBuyOnDay = buyProductWithDay();
-        $bestSale = bestProductSales();
-        $totalOrderWeek = totalOrderWithWeek();
-        $sumMoneyMonthCurrently = sumMoneyMonthCurrently();
+        // $listBuyOnDay = buyProductWithDay();
+        // $bestSale = bestProductSales();
+        // $totalOrderWeek = totalOrderWithWeek();
+        // $sumMoneyMonthCurrently = sumMoneyMonthCurrently();
 
         require_once "./home.php";
     }

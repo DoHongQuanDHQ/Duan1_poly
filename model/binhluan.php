@@ -62,8 +62,8 @@ function commented_getAll(){
     return pdo_query($sql);
 }
 function commented_getAll2($page){
-    $sql = "SELECT * FROM comments_product GROUP BY product_id
-    ORDER BY product_id Desc limit $page,5 ";
+
+    $sql = "SELECT * FROM comments_product   ORDER BY  id asc limit  $page ,5";
     return pdo_query($sql);
 }
 function commented_toUser($Uid,$Pid){

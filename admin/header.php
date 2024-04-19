@@ -28,9 +28,7 @@
             <div class="featuresRow">
                 <div class="titlePageAdmin">
                     <div class="logoBrand">
-                        <!-- <a href=""><img src="src/image/FSport.png" alt=""></a> -->
-                        <a href="../index.php"><img src="../src/imageAdmin/FSport1.png" alt=""></a>
-                        <a href="../index.php" class="hiddenImage"><img src="../src/imageAdmin/FSport2.png" alt=""></a>
+                        <a href="../index.php"><img src="../src/imageAdmin/img1.jpeg" alt="" width="150" height="80"></a>
                     </div>
                 </div>
                 <div class="spaceLogoBrand">
@@ -92,7 +90,7 @@
                     <div class="nameAdmin nameAdmin--navLeft">
                         <?=$_SESSION['user']['name']?>
                         <div class="statusAdmin">
-                            <div></div>
+                            <div>Đỗ Hồng Quân</div>
                             <p>Online</p>
                         </div>
                     </div>
@@ -123,8 +121,8 @@
                             <a href="index.php?actAdmin=showUsers" class="canHidden">Quản lý người dùng</a>
                         </li>
                         <li>
-                            <a href="index.php?actAdmin=comments&&page=1"><i class="fa-solid fa-comment"></i></a>
-                            <a href="index.php?actAdmin=comments&&page=1" class="canHidden">Quản lý bình luận</a>
+                            <a href="index.php?actAdmin=comments&page=1"><i class="fa-solid fa-comment"></i></a>
+                            <a href="index.php?actAdmin=comments&page=1" class="canHidden">Quản lý bình luận</a>
                         </li>
                         <li>
                             <a href="index.php?actAdmin=statisticals"><i class="fa-solid fa-database"></i></a>

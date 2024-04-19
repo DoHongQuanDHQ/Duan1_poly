@@ -430,8 +430,8 @@ foreach ($check_user_bying_product as $check) {
                     $img =  $image_path . $avatar;
                     $linkpro = "index.php?act=detail_product&id=" . $id;
                     echo '<div class="one_collection_product_list--item-detail">
-                      <div class="one_product_list--item-detail-img">
-                          <a href="' . $linkpro . '"> <img src="' . $img . '" alt=""></a>
+                    <div class="one_product_list--item-detail-img">
+                        <a href="' . $linkpro . '"> <img src="' . $img . '" alt=""></a>
             </div>
             <div class="one_product_list--item-detail-nameproduct">
                 <p>

@@ -1,7 +1,7 @@
 <!-- FOOTER -->
 <footer class="grid footer">
     <a class="btn__scroll--header" href="#top">
-        <i class="fa-solid fa-chevrons-up" style="color: #000000;"></i>
+        <i class="fa-solid fa-chevrons-up" style="color: #ffffff;"></i>
     </a>
     <div class=" grid wide section--service">
         <div class="grid wide section--service-1 l-3 m-6 c-6">
